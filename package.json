@@ -1,0 +1,10 @@
+{
+  "name": "wetube",
+  "version": "1.0.0",
+  "description": "clone youtube with nomad",
+  "main": "index.js",
+  "author": "danfunga",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
