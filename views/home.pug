@@ -1,0 +1,11 @@
+extends layouts/main.pug
+
+include mixins/videoBlock
+block content
+    div.videos
+            each targetVideo in videos
+                +videoBlock({
+                    title:targetVideo.title,
+                    videosFile : targetVideo.videosFile,
+                    views:targetVideo.views
+                })
