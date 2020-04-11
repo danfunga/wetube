@@ -7,6 +7,8 @@ block content
                 +videoBlock({
                     id:targetVideo.id,
                     title:targetVideo.title,
-                    videosFile : targetVideo.videosFile,
+                    videosFile : targetVideo.fileUrl,
                     views:targetVideo.views
                 })
+                //Videos에 들어 있는 객체는 현재 MongoDB에서 읽어서 전달된 객체이다.
+
