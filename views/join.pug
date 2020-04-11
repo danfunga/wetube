@@ -3,9 +3,9 @@ extends layouts/main.pug
 block content
     div.form-container
         form( action=routes.join, method="post")
-            input( type="text", name="Name", placeholder="FullName")
-            input( type="email", name="email", placeholder="Email")
-            input( type="password", name="password", placeholder="Password")
-            input( type="password", name="password2", placeholder="Veryfy Password")
+            input( type="text", name="Name", placeholder="FullName", required=true)
+            input( type="email", name="email", placeholder="Email", required=true)
+            input( type="password", name="password", placeholder="Password", required=true)
+            input( type="password", name="password2", placeholder="Veryfy Password", required=true)
             input( type="submit", value="Join Now")
         include ./partials/socialLogin
