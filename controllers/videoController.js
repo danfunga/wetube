@@ -51,8 +51,62 @@ export const postUpload = async (request, response )=> {
 
 
 };
-export const videoDetail = (request, response )=> response.render("videoDetail",  {pageTitle:"Video Detail"} );
-export const editVideo = (request, response )=> response.render("editVideo", {pageTitle:"Edit Video"} );
+// async가 중요하다.
+export const videoDetail = async (request, response )=> {
+    const {
+        params:{id}
+    }=request;
+    try {
+        console.log( id );
+        const video = await Video.findById( id );
+        console.log( video );
+        response.render("videoDetail",  {pageTitle:"Video Detail", video} );
+    }
+    catch ( e ) {
+        console.log( e );
+        // 에러로 찾지 못하면 home으로 rerouting한다.
+        response.redirect(routes.home);
+    }
+
+};
+
+
+export const getEditVideo = async (request, response )=> {
+    const{
+        params:{id}
+    }=request;
+    console.log( id );
+
+    try {
+        const video = await Video.findById( id );
+        response.render("editVideo", {pageTitle:`Edit ${video.title}`, video} );
+    }
+    catch ( e ) {
+        response.redirect(routes.home);
+    }
+
+
+
+};
+
+export const postEditVideo = async (request, response) =>{
+    const{
+        params:{id},
+        body:{title, description}
+    }=request;
+    console.log( id );
+
+    try {
+        // _id 로 해줘야 한다.
+        const result = await Video.findOneAndUpdate( {_id:id}, {title, description} );
+        console.log( result );
+        response.redirect(routes.videoDetail(id));
+    }
+    catch ( e ) {
+        response.redirect(routes.home);
+    }
+
+};
 export const deleteVideo = (request, response )=> response.render("deleteVideo",  {pageTitle:"Delete Video"} );
 
 
