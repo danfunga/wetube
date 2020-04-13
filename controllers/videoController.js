@@ -34,7 +34,6 @@ export const postUpload = async (request, response )=> {
         body: { title, description},
         file: {path}
     } = request;
-    const {body, file} = request;
 
 
     const newVideo = await Video.create({
@@ -60,7 +59,7 @@ export const videoDetail = async (request, response )=> {
         console.log( id );
         const video = await Video.findById( id );
         console.log( video );
-        response.render("videoDetail",  {pageTitle:"Video Detail", video} );
+        response.render("videoDetail",  {pageTitle:`${video.title}`, video} );
     }
     catch ( e ) {
         console.log( e );
@@ -94,12 +93,12 @@ export const postEditVideo = async (request, response) =>{
         params:{id},
         body:{title, description}
     }=request;
-    console.log( id );
+    // console.log( id );
 
     try {
         // _id 로 해줘야 한다.
-        const result = await Video.findOneAndUpdate( {_id:id}, {title, description} );
-        console.log( result );
+        await Video.findOneAndUpdate( {_id:id}, {title, description} );
+
         response.redirect(routes.videoDetail(id));
     }
     catch ( e ) {
@@ -107,6 +106,19 @@ export const postEditVideo = async (request, response) =>{
     }
 
 };
-export const deleteVideo = (request, response )=> response.render("deleteVideo",  {pageTitle:"Delete Video"} );
+export const deleteVideo = async (request, response )=>{
+    const{
+        params:{id},
+    }=request;
+    try {
+        // _id 로 해줘야 한다.
+        await Video.findOneAndDelete( {_id:id} );
+    }
+    catch ( e ) {
+        // empty
+    }
+
+    response.redirect(routes.home);
+};
 
 
